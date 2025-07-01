@@ -21,6 +21,8 @@ open class WWNtpClient {
     private var clourseResult: ((Result<Date, Error>) -> Void)?
     
     deinit {
+        connection?.cancel()
+        connection = nil
         clourseResult = nil
     }
 }
@@ -62,7 +64,7 @@ public extension WWNtpClient {
     }
     
     func connection(_ connection: WWTcpConnection, error: WWTcpConnection.ConnectionError?) {
-        if let error { connection.cancel(); clourseResult?(.failure(error)) }
+        if let error { cleanConnection(connection); clourseResult?(.failure(error)) }
     }
     
     func connection(_ connection: WWTcpConnection, sendContent contentType: WWTcpConnection.ContentType, state: NWConnection.State) {}
@@ -72,8 +74,7 @@ public extension WWNtpClient {
         let date = parseDate(with: data)
         
         clourseResult?(.success(date))
-        clourseResult = nil
-        connection.cancel()
+        cleanConnection(connection)
     }
 }
 
@@ -106,6 +107,13 @@ private extension WWNtpClient {
         let ntpTimeInterval = TimeInterval(seconds) - ntp2UnixTimeInterval
 
         return Date(timeIntervalSince1970: ntpTimeInterval)
+    }
+    
+    /// 清除連線
+    /// - Parameter connection: WWTcpConnection
+    func cleanConnection(_ connection: WWTcpConnection) {
+        connection.cancel()
+        clourseResult = nil
     }
 }
 
