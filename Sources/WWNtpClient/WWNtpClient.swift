@@ -15,10 +15,9 @@ open class WWNtpClient {
     public static let shared = WWNtpClient()
     
     private let ntpPacketSize = 48
-    private let ntp2UnixTimeInterval: TimeInterval = 2208988800 // NTP轉Unix的時間差 (1900-01-01 00:00:00 UTC / 1970-01-01 00:00:00 UTC)
     
     private var connection: WWTcpConnection?
-    private var clourseResult: ((Result<Date, Error>) -> Void)?
+    private var clourseResult: ((Result<NtpInformation, Error>) -> Void)?
     
     deinit {
         connection?.cancel()
@@ -34,20 +33,20 @@ public extension WWNtpClient {
     /// - Parameters:
     ///   - ntp: [NTP-Server類型](https://youtu.be/UfrAHoPxkf4)
     ///   - result: [Result<Date, Error>](https://linux.vbird.org/linux_server/centos6/0440ntp.php)
-    func connect(ntp: any NtpServerEnum = NTP_Pool.default, result: ((Result<Date, Error>) -> Void)?) {
+    func connect(ntp: any NtpServerEnum = NTP_Pool.default, result: ((Result<NtpInformation, Error>) -> Void)?) {
         
         let host = NWEndpoint.Host(ntp.url())
         
         clourseResult = result
         
         connection = WWTcpConnection(host: host, port: 123, using: .udp)
-        connection?.create(minimumLength: 48, maximumLength: 48, delegate: self)
+        connection?.create(minimumLength: ntpPacketSize, maximumLength: ntpPacketSize, delegate: self)
     }
     
     /// [取得NTP-Server上的時間](https://github.com/apple/swift-ntp)
     /// - Parameter ntp: [NTP-Server類型](https://www.jannet.hk/network-time-protocol-ntp-zh-hant/)
     /// - Returns: [Result<Date, Error>](https://www.rfc-editor.org/rfc/rfc5905.html)
-    func connect(ntp: any NtpServerEnum = NTP_Pool.default) async -> Result<Date, Error> {
+    func connect(ntp: any NtpServerEnum = NTP_Pool.default) async -> Result<NtpInformation, Error> {
         await withCheckedContinuation { continuation in
             connect(ntp: ntp) { continuation.resume(returning: $0) }
         }
@@ -73,7 +72,7 @@ public extension WWNtpClient {
         
         let date = parseDate(with: data)
         
-        clourseResult?(.success(date))
+        clourseResult?(.success((raw: data, date: date)))
         cleanConnection(connection)
     }
 }
@@ -94,10 +93,13 @@ private extension WWNtpClient {
         return packet
     }
     
-    /// 解析日期 => 48位元的後8位元
+    /// 解析日期 => 48位元的後8位元 (Transmit Timestamp：64bits，伺服器回傳資料時的時間戳)
     /// - Parameter data: Data
     /// - Returns: Date
     func parseDate(with data: Data) -> Date {
+        
+        // NTP轉Unix的時間差 (1900-01-01 00:00:00 UTC / 1970-01-01 00:00:00 UTC)
+        let ntp2UnixTimeInterval: TimeInterval = 2208988800
         
         let seconds = data.withUnsafeBytes { point -> UInt32 in
             let offset = 40

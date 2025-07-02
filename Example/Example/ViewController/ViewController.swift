@@ -19,7 +19,7 @@ final class ViewController: UIViewController {
             
             switch result {
             case .failure(let error): timeLabel.text = error.localizedDescription
-            case .success(let date): timeLabel.text = date.ISO8601Format()
+            case .success(let info): timeLabel.text = info.date.ISO8601Format()
             }
         }
     }

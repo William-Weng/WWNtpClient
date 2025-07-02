@@ -7,6 +7,10 @@
 
 import Foundation
 
+public extension WWNtpClient {
+    typealias NtpInformation = (raw: Data, date: Date)
+}
+
 // [NTP-Server](https://note.chiatse.com/tai-wan-guan-yong-gong-kai-shi-jian-si-fu-qi-ntp-server/)
 public extension WWNtpClient {
     
