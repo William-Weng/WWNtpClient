@@ -14,7 +14,7 @@ open class WWNtpClient {
     
     public static let shared = WWNtpClient()
     
-    // NTP封包階為48-Bytes
+    // NTP封包階為48位元
     private let ntpPacketSize = 48
     
     // NTP轉Unix的時間差 (1900-01-01 00:00:00 UTC / 1970-01-01 00:00:00 UTC)
@@ -88,9 +88,9 @@ public extension WWNtpClient {
 private extension WWNtpClient {
     
     /// 產生設定封包 (48位元) => 0b00100011（LI=0, VN=4, Mode=3）
-    //  - LI (Leap Indicator, 2 bits)：前2位，表示閏秒資訊
-    //  - VN (Version Number, 3 bits)：中間3位，表示 NTP 協定版本
-    //  - Mode (3 bits)：最後3位，表示封包模式（如 client、server）
+    /// - LI (Leap Indicator, 2 bits)：前2位，表示閏秒資訊
+    /// - VN (Version Number, 3 bits)：中間3位，表示 NTP 協定版本
+    /// - Mode (3 bits)：最後3位，表示封包模式（如 client、server）
     /// - Returns: [UInt8]
     func packetSetting() -> [UInt8] {
         

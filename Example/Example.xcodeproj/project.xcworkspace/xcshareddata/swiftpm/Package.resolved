@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWNtpClient",
       "state" : {
-        "revision" : "4b29a376728c30c12c298861569030e4a1441232",
-        "version" : "1.0.2"
+        "revision" : "e25cf9c8192cdc4bb616477bbe301b75a549b9dd",
+        "version" : "1.0.3"
       }
     },
     {
