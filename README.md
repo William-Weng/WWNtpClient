@@ -11,15 +11,15 @@
 
 ```bash
 dependencies: [
-    .package(url: "https://github.com/William-Weng/WWNtpClient.git", .upToNextMajor(from: "1.0.2"))
+    .package(url: "https://github.com/William-Weng/WWNtpClient.git", .upToNextMajor(from: "1.0.3"))
 ]
 ```
 
 ### Function - 可用函式
 |函式|功能|
 |-|-|
-|connect(ntp:result:)|取得NTP-Server上的時間|
-|connect(ntp:)|取得NTP-Server上的時間|
+|connect(ntp:queue:result:)|取得NTP-Server上的時間|
+|connect(ntp:queue:)|取得NTP-Server上的時間|
 
 ### Example
 ```swift

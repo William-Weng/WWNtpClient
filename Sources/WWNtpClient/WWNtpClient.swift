@@ -36,23 +36,26 @@ public extension WWNtpClient {
     /// [取得NTP-Server上的時間](https://zh.wikipedia.org/zh-tw/網路時間協定)
     /// - Parameters:
     ///   - ntp: [NTP-Server類型](https://youtu.be/UfrAHoPxkf4)
+    ///   - queue: DispatchQueue
     ///   - result: [Result<NtpInformation, Error>](https://linux.vbird.org/linux_server/centos6/0440ntp.php)
-    func connect(ntp: any NtpServerEnum = NTP_Pool.default, result: ((Result<NtpInformation, Error>) -> Void)?) {
+    func connect(ntp: any NtpServerEnum = NTP_Pool.default, queue: DispatchQueue = .global(), result: ((Result<NtpInformation, Error>) -> Void)?) {
         
         let host = NWEndpoint.Host(ntp.url())
         
         clourseResult = result
         
-        connection = WWTcpConnection(host: host, port: 123, using: .udp)
+        connection = WWTcpConnection(host: host, port: 123, using: .udp, queue: queue)
         connection?.create(minimumLength: ntpPacketSize, maximumLength: ntpPacketSize, delegate: self)
     }
     
     /// [取得NTP-Server上的時間](https://github.com/apple/swift-ntp)
-    /// - Parameter ntp: [NTP-Server類型](https://www.jannet.hk/network-time-protocol-ntp-zh-hant/)
+    /// - Parameters:
+    ///   - ntp: [NTP-Server類型](https://www.jannet.hk/network-time-protocol-ntp-zh-hant/)
+    ///   - queue: DispatchQueue
     /// - Returns: [Result<NtpInformation, Error>](https://www.rfc-editor.org/rfc/rfc5905.html)
-    func connect(ntp: any NtpServerEnum = NTP_Pool.default) async -> Result<NtpInformation, Error> {
+    func connect(ntp: any NtpServerEnum = NTP_Pool.default, queue: DispatchQueue = .global()) async -> Result<NtpInformation, Error> {
         await withCheckedContinuation { continuation in
-            connect(ntp: ntp) { continuation.resume(returning: $0) }
+            connect(ntp: ntp, queue: queue) { continuation.resume(returning: $0) }
         }
     }
 }
