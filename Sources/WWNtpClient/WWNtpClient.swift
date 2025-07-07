@@ -14,7 +14,11 @@ open class WWNtpClient {
     
     public static let shared = WWNtpClient()
     
+    // NTP封包階為48-Bytes
     private let ntpPacketSize = 48
+    
+    // NTP轉Unix的時間差 (1900-01-01 00:00:00 UTC / 1970-01-01 00:00:00 UTC)
+    let ntp2UnixTimeInterval: TimeInterval = 2208988800
     
     private var connection: WWTcpConnection?
     private var clourseResult: ((Result<NtpInformation, Error>) -> Void)?
@@ -97,9 +101,6 @@ private extension WWNtpClient {
     /// - Parameter data: Data
     /// - Returns: Date
     func parseDate(with data: Data) -> Date {
-        
-        // NTP轉Unix的時間差 (1900-01-01 00:00:00 UTC / 1970-01-01 00:00:00 UTC)
-        let ntp2UnixTimeInterval: TimeInterval = 2208988800
         
         let seconds = data.withUnsafeBytes { point -> UInt32 in
             let offset = 40

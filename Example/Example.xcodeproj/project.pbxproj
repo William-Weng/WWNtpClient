@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		81346D972E14C62D0040BC6D /* WWNtpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 81346D962E14C62D0040BC6D /* WWNtpClient */; };
-		81346D9A2E14C8080040BC6D /* WWNtpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 81346D992E14C8080040BC6D /* WWNtpClient */; };
 		814F21C92E13E8D400F151BA /* WWNtpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 814F21C82E13E8D400F151BA /* WWNtpClient */; };
 		817567FC2CA2C2B400B24577 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817567FB2CA2C2B400B24577 /* AppDelegate.swift */; };
 		817568002CA2C2B400B24577 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817567FF2CA2C2B400B24577 /* ViewController.swift */; };
 		817568032CA2C2B400B24577 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 817568012CA2C2B400B24577 /* Main.storyboard */; };
 		817568052CA2C2B500B24577 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 817568042CA2C2B500B24577 /* Assets.xcassets */; };
 		817568082CA2C2B500B24577 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 817568062CA2C2B500B24577 /* LaunchScreen.storyboard */; };
+		817930962E1B608400AABB1B /* WWNtpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 817930952E1B608400AABB1B /* WWNtpClient */; };
+		817930992E1B624000AABB1B /* WWNtpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 817930982E1B624000AABB1B /* WWNtpClient */; };
 		81A9DEDF2E13E46C003D1FF3 /* WWNtpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 81A9DEDE2E13E46C003D1FF3 /* WWNtpClient */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +36,8 @@
 			files = (
 				814F21C92E13E8D400F151BA /* WWNtpClient in Frameworks */,
 				81346D972E14C62D0040BC6D /* WWNtpClient in Frameworks */,
-				81346D9A2E14C8080040BC6D /* WWNtpClient in Frameworks */,
+				817930962E1B608400AABB1B /* WWNtpClient in Frameworks */,
+				817930992E1B624000AABB1B /* WWNtpClient in Frameworks */,
 				81A9DEDF2E13E46C003D1FF3 /* WWNtpClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -132,7 +134,8 @@
 				81A9DEDE2E13E46C003D1FF3 /* WWNtpClient */,
 				814F21C82E13E8D400F151BA /* WWNtpClient */,
 				81346D962E14C62D0040BC6D /* WWNtpClient */,
-				81346D992E14C8080040BC6D /* WWNtpClient */,
+				817930952E1B608400AABB1B /* WWNtpClient */,
+				817930982E1B624000AABB1B /* WWNtpClient */,
 			);
 			productName = Example;
 			productReference = 817567F82CA2C2B400B24577 /* Example.app */;
@@ -163,7 +166,7 @@
 			);
 			mainGroup = 817567EF2CA2C2B400B24577;
 			packageReferences = (
-				81346D982E14C8080040BC6D /* XCRemoteSwiftPackageReference "WWNtpClient" */,
+				817930972E1B624000AABB1B /* XCRemoteSwiftPackageReference "WWNtpClient" */,
 			);
 			productRefGroup = 817567F92CA2C2B400B24577 /* Products */;
 			projectDirPath = "";
@@ -428,7 +431,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		81346D982E14C8080040BC6D /* XCRemoteSwiftPackageReference "WWNtpClient" */ = {
+		817930972E1B624000AABB1B /* XCRemoteSwiftPackageReference "WWNtpClient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWNtpClient";
 			requirement = {
@@ -443,13 +446,17 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = WWNtpClient;
 		};
-		81346D992E14C8080040BC6D /* WWNtpClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 81346D982E14C8080040BC6D /* XCRemoteSwiftPackageReference "WWNtpClient" */;
-			productName = WWNtpClient;
-		};
 		814F21C82E13E8D400F151BA /* WWNtpClient */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = WWNtpClient;
+		};
+		817930952E1B608400AABB1B /* WWNtpClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WWNtpClient;
+		};
+		817930982E1B624000AABB1B /* WWNtpClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 817930972E1B624000AABB1B /* XCRemoteSwiftPackageReference "WWNtpClient" */;
 			productName = WWNtpClient;
 		};
 		81A9DEDE2E13E46C003D1FF3 /* WWNtpClient */ = {

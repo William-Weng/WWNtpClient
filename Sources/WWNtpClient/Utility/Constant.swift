@@ -15,7 +15,7 @@ public extension WWNtpClient {
 public extension WWNtpClient {
     
     enum Apple: NtpServerEnum {
-                
+        
         case `default`
         case asia
         case euro
